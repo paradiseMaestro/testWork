@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Text;
+using System.IO;
+
 namespace test
 {
 
@@ -60,17 +62,37 @@ namespace test
 
 
 
-                XDocument xdoc = XDocument.Load("C:/Users/79042/Desktop/lol5.xml");
-                foreach (XElement contact in xdoc.Element("book").Elements("title"))
+                String xmlString = File.ReadAllText("C:/Users/79042/Desktop/XMLFile1.xml");
+                XDocument xdoc = XDocument.Load(new StringReader(xmlString));
+
+                var xmlList = (from article in xdoc.Descendants("article")
+                               select new
+                               {
+                                   id = article.Descendants("id").SingleOrDefault(),
+                                   name = article.Descendants("name").SingleOrDefault(),
+                                   photo_s = article.Descendants("photo_s").SingleOrDefault(),
+                                   photo_m = article.Descendants("photo_m").SingleOrDefault(),
+                                   photo_l = article.Descendants("photo_l").SingleOrDefault(),
+                                   date = article.Descendants("id").SingleOrDefault()
+                               }).ToList();
+
+                var articleList = (from item in xmlList
+                                   select new
+                                   {
+                                       id = item.id != null ? item.id.Value : null,
+                                       name = item.name != null ? item.name.Value : null,
+                                       photo_s = item.photo_s != null ? item.photo_s.Value : null,
+                                       photo_m = item.photo_m != null ? item.photo_m.Value : null,
+                                       photo_l = item.photo_l != null ? item.photo_l.Value : null,
+                                       date = item.date != null ? item.date.Value : null
+                                   });
+
+                foreach (var article in articleList)
                 {
-                    //XAttribute numAttr = contact.Attribute("TelephoneNumber");
-
-                    //Console.WriteLine("Номер: {0}", numAttr.Value);
-                    Console.WriteLine("Имя: {0}", contact.Value);
-                    //listBox1.Text = numAttr.Value;
+                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}",
+                        article.id, article.date, article.name, article.photo_l, article.photo_m, article.photo_s);
                 }
-
-
+                
 
 
 
