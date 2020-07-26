@@ -56,34 +56,23 @@ namespace test
                 //xdoc.Add(el1);
                 //xdoc.Save("C:/Users/79042/Desktop/lol.xml");
 
-               
 
-                XmlTextReader xml = new XmlTextReader("C:/Users/79042/Desktop/lol.xml");
-                xml.WhitespaceHandling = WhitespaceHandling.None;
-                int i = 0;
-                while (xml.Read())
-                {
-                    if ((xml.NodeType == XmlNodeType.Element) &
-                     (xml.Name == "subelement"))
-                    {
-                        listBox1.Items.Add("subelement " + i + " found");
-                        i++;
-                        listBox1.Items.Add(" " + xml.GetAttribute("attrib1"));
-                        listBox1.Items.Add(" " + xml.GetAttribute("attrib2"));
-                        while (xml.Read() & (xml.Name == "subsubelement"))
-                        {
-                            listBox1.Items.Add(" " + xml.GetAttribute("attr"));
-                        }
-                    }
-                }
-                xml.Close();
+            XDocument xdoc = new XDocument();
+                // создаем корневой элемент
+                XElement el1 = new XElement("MyContacts");
+                // создаем атрибут
+                XAttribute attr = new XAttribute("TelephoneNumber", "906181733");
+                //создает элемент
+                XElement el2 = new XElement("Contact", "Alex");
 
-
-
-
-
-
-
+                //помещаем в элемент, атрибут
+                el2.Add(attr);
+                //помещаем элелемент в корневой элемент
+                el1.Add(el2);
+                //помещаем элелементы в документ
+                xdoc.Add(el1);
+                //сохраняем документ
+                xdoc.Save("C:/Users/79042/Desktop/lol5.xml");
 
 
 
@@ -143,5 +132,12 @@ namespace test
 
         }
 
+        private class Student
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Gender { get; set; }
+            public int Age { get; set; }
+        }
     }
 }
