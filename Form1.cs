@@ -57,25 +57,18 @@ namespace test
                 //xdoc.Save("C:/Users/79042/Desktop/lol.xml");
 
 
-            XDocument xdoc = new XDocument();
-                // создаем корневой элемент
-                XElement el1 = new XElement("MyContacts");
-                // создаем атрибут
-                XAttribute attr = new XAttribute("TelephoneNumber", "906181733");
-                //создает элемент
-                XElement el2 = new XElement("Contact", "Alex");
-
-                //помещаем в элемент, атрибут
-                el2.Add(attr);
-                //помещаем элелемент в корневой элемент
-                el1.Add(el2);
-                //помещаем элелементы в документ
-                xdoc.Add(el1);
-                //сохраняем документ
-                xdoc.Save("C:/Users/79042/Desktop/lol5.xml");
 
 
 
+                XDocument xdoc = XDocument.Load("C:/Users/79042/Desktop/lol5.xml");
+                foreach (XElement contact in xdoc.Element("book").Elements("title"))
+                {
+                    //XAttribute numAttr = contact.Attribute("TelephoneNumber");
+
+                    //Console.WriteLine("Номер: {0}", numAttr.Value);
+                    Console.WriteLine("Имя: {0}", contact.Value);
+                    //listBox1.Text = numAttr.Value;
+                }
 
 
 
