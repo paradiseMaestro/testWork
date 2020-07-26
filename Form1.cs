@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace test
 {
@@ -62,37 +63,34 @@ namespace test
 
 
 
-                String xmlString = File.ReadAllText("C:/Users/79042/Desktop/XMLFile1.xml");
-                XDocument xdoc = XDocument.Load(new StringReader(xmlString));
+                //String xmlString = File.ReadAllText("C:/Users/79042/Desktop/XMLFile1.xml");
+                //XDocument xdoc = XDocument.Load(new StringReader(xmlString));
 
-                var xmlList = (from article in xdoc.Descendants("article")
-                               select new
-                               {
-                                   id = article.Descendants("id").SingleOrDefault(),
-                                   name = article.Descendants("name").SingleOrDefault(),
-                                   photo_s = article.Descendants("photo_s").SingleOrDefault(),
-                                   photo_m = article.Descendants("photo_m").SingleOrDefault(),
-                                   photo_l = article.Descendants("photo_l").SingleOrDefault(),
-                                   date = article.Descendants("id").SingleOrDefault()
-                               }).ToList();
+               // var xmlList = (from article in xdoc.Descendants("book")
+             //                  select new
+            //                   {
+             //                      category = article.Attribute("category"),
+           //                        title = article.Descendants("title").SingleOrDefault(),
+           //                        year = article.Descendants("year").SingleOrDefault(),
+           //                        price = article.Descendants("price").SingleOrDefault(),
+           //                    }).ToList();
 
-                var articleList = (from item in xmlList
-                                   select new
-                                   {
-                                       id = item.id != null ? item.id.Value : null,
-                                       name = item.name != null ? item.name.Value : null,
-                                       photo_s = item.photo_s != null ? item.photo_s.Value : null,
-                                       photo_m = item.photo_m != null ? item.photo_m.Value : null,
-                                       photo_l = item.photo_l != null ? item.photo_l.Value : null,
-                                       date = item.date != null ? item.date.Value : null
-                                   });
+            //    var articleList = (from item in xmlList
+              //                     select new
+             //                      {
+             //                          title = item.title != null ? item.title.Value : null,
+             //                         author = item.author != null ? item.author.Value : null,
+              //                         year = item.year != null ? item.year.Value : null,
+              //                         price = item.price != null ? item.price.Value : null,
+              //                         category = item.category != null ? item.category.Value : null,
 
-                foreach (var article in articleList)
-                {
-                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}",
-                        article.id, article.date, article.name, article.photo_l, article.photo_m, article.photo_s);
-                }
-                
+              //                     });
+
+            //    foreach (var article in articleList)
+            //    {
+            //        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t",
+            //            article.title, article.author, article.year, article.price, article.category);
+            //    }
 
 
 
@@ -119,11 +117,7 @@ namespace test
 
 
 
-
-
-
-
-            }
+    }
 
 
 
@@ -153,6 +147,50 @@ namespace test
             public string Name { get; set; }
             public string Gender { get; set; }
             public int Age { get; set; }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+          
+        }
+
+        private void infoHTML_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.TableName = "Bank";
+
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                //if (dataGridView1.Columns[i].Visible) // Add's only Visible columns (if you need it)
+                //{
+                string headerText = dataGridView1.Columns[i].HeaderText;
+                headerText = Regex.Replace(headerText, "[-/, ]", "_");
+
+                DataColumn column = new DataColumn(headerText);
+                dt.Columns.Add(column);
+                //}
+            }
+
+            foreach (DataGridViewRow DataGVRow in dataGridView1.Rows)
+            {
+                DataRow dataRow = dt.NewRow();
+                // Add's only the columns that you want
+                //dataRow["BLZ"] = DataGVRow.Cells["BLZ"].Value;
+                //dataRow["Test_1"] = DataGVRow.Cells["Test 1"].Value;
+                dataRow["lang"] = DataGVRow.Cells["lang"].Value;
+                //dataRow["PIN_TAN_Test_URL"] = DataGVRow.Cells["PIN/TAN-Test URL"].Value;
+
+                dt.Rows.Add(dataRow); //dt.Columns.Add();
+            }
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+
+            //Finally the save part:
+            XmlTextWriter xmlSave = new XmlTextWriter("C:/Users/79042/Desktop/XMLFile5.xml", Encoding.UTF8);
+            xmlSave.Formatting = Formatting.Indented;
+            ds.DataSetName = "Data";
+            ds.WriteXml(xmlSave);
+            xmlSave.Close();
         }
     }
 }
