@@ -35,12 +35,6 @@
             this.add = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.author = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,48 +110,10 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.category,
-            this.lang,
-            this.title,
-            this.author,
-            this.year,
-            this.price});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 111);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 262);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 172);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 191);
             this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // category
-            // 
-            this.category.HeaderText = "category";
-            this.category.Name = "category";
-            // 
-            // lang
-            // 
-            this.lang.HeaderText = "lang";
-            this.lang.Name = "lang";
-            // 
-            // title
-            // 
-            this.title.HeaderText = "title";
-            this.title.Name = "title";
-            // 
-            // author
-            // 
-            this.author.HeaderText = "author";
-            this.author.Name = "author";
-            // 
-            // year
-            // 
-            this.year.HeaderText = "year";
-            this.year.Name = "year";
-            // 
-            // price
-            // 
-            this.price.HeaderText = "price";
-            this.price.Name = "price";
             // 
             // Form1
             // 
@@ -187,12 +143,6 @@
         private System.Windows.Forms.Button add;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lang;
-        private System.Windows.Forms.DataGridViewTextBoxColumn title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn author;
-        private System.Windows.Forms.DataGridViewTextBoxColumn year;
-        private System.Windows.Forms.DataGridViewTextBoxColumn price;
     }
 }
 
